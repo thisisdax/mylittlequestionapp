@@ -1,0 +1,11 @@
+<% if (user) { %>
+  <form action="/room/join?_method=PUT" method="POST">
+    <div class="form-group">
+      <label for="authRoom">Join a Room!</label>
+      <input id="authRoom" class="form-control" type="room" name="room">
+    </div>
+
+    <input class="btn btn-primary" type="submit">
+
+  </form>
+<% } %>

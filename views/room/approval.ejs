@@ -1,0 +1,20 @@
+<div class="container">
+  <h1 class="page-header">Topic: <%= room.room %></h1>
+
+<ul class="list-group">
+  <% room.question.forEach(function (show) { %>
+    <li class="list-group-item">
+      <strong>Question: </strong>
+      <%= show.title%></br>
+      <strong>Description: </strong>
+      <%= show.description %>
+      <form method="POST" action="/question/approve/<%= show._id %>?_method=PUT">
+        <button>Allow</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+
+<% if (!room.question.length) { %>
+  <h3 class="page-header">No one has any questions yet!</h3>
+<% } %>

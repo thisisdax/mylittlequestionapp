@@ -1,0 +1,60 @@
+<div class="container">
+  <h1 class="page-header">Topic: <%= room.room %></h1>
+  
+<ul class="list-group">
+  <% room.question.sort(function(a,b) { return b.votes.length - a.votes.length }) %>
+  <% room.question.forEach(function (show) { %>
+    <% if (show.approved || room.host.equals(user.id)) { %>
+    <li class="list-group-item">
+      <strong>Question: </strong>
+      <%= show.title %></br>
+      <strong>Description: </strong>
+      <%= show.description %></br>
+      <strong>Votes: </strong>
+      <%= show.votes.length %></br>
+      <% if (room.host.equals(user.id)) { %>
+      <strong>Approved: </strong>
+      <%= show.approved %>
+      <% } %>
+      <% if (room.host.equals(user.id)) { %>
+      <% if (!show.approved) { %>
+        <form method="POST" action="/question/approve/<%= show.id %>?_method=PUT">
+          <button>Approve</button>
+        </form>
+      <% } else { %>
+        <form method="POST" action="/question/unapprove/<%= show.id %>?_method=PUT">
+          <button>Unapprove</button>
+        </form>
+      <% } %>
+      <form method="POST" action="/question/remove/<%= show.id %>?_method=DELETE">
+        <button>Remove</button>
+      </form>
+      <% } else { %>
+      <% if (show.votes.indexOf(user.id) < 0) { %>
+      <form method="POST" action="/question/vote/<%= show.id %>?_method=PUT">
+        <button>Vote</button>
+      </form>
+      <% } else { %>
+        <form method="POST" action="/question/vote/<%= show.id %>?_method=PUT">
+          <button>Unvote</button>
+        </form>
+      <% } %>
+      <% } %>
+    </li>
+    <% } %>
+  <% }) %>
+</ul>
+
+<% if (!room.question.length) { %>
+  <h3 class="page-header">No one has any questions yet!</h3>
+<% } %>
+
+<% if (!room.host.equals(user.id)) { %>
+<form method="POST" action="/question/create/<%= room._id %>">
+  <div class="form-group">
+    <input id="question" class="form-control" type="question" name="title" placeholder="Title">
+    <input id="question" class="form-control" type="question" name="description" placeholder="Description">
+  </div>
+  <button>Create</button>
+</form>
+<% } %>

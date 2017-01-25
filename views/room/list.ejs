@@ -1,0 +1,44 @@
+<div class="container">
+<% if (room.length) { %>
+  <h1 class="page-header">Rooms you created</h1>
+
+<ul class="list-group">
+  <% room.forEach(function (show) { %>
+    <li class="list-group-item">
+      <strong>Topic: </strong>
+      <%= show.room %></br>
+      <strong>Room: </strong>
+      <%= show.id %>
+    </li>
+    <form method="POST" action="list/<%= show._id %>?_method=DELETE">
+      <button>Delete</button>
+    </form>
+    <form method="GET" action="/question/list/<%= show._id %>">
+      <button>Enter</button>
+    </form>
+  <% }) %>
+</ul>
+<% } %>
+
+<% if (joinroom.length) { %>
+  <h1 class="page-header">Rooms you joined</h1>
+
+<ul class="list-group">
+  <% joinroom.forEach(function (show) { %>
+    <li class="list-group-item">
+      <strong><%= show._id %>: </strong>
+      <%= show.room %>
+    </li>
+    <form method="POST" action="list/<%= show._id %>?_method=DELETE">
+      <button>Delete</button>
+    </form>
+    <form method="GET" action="/question/list/<%= show._id %>">
+      <button>Enter</button>
+    </form>
+  <% }) %>
+</ul>
+<% } %>
+
+<% if (!room.length && !joinroom.length) { %>
+  <h1 class="page-header">Nothing on your activity!</h1>
+<% } %>

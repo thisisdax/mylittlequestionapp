@@ -10,12 +10,15 @@
       <strong>Host Name: </strong>
       <%= show.host.name %>
     </li>
+    <br>
     <form method="POST" action="list/<%= show._id %>?_method=DELETE">
       <button>Delete</button>
     </form>
+  </br>
     <form method="GET" action="/question/list/<%= show._id %>">
       <button>Enter</button>
     </form>
+  </br>
   <% }) %>
 </ul>
 <% } %>

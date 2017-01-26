@@ -119,7 +119,10 @@
     </div>
     <button>Create</button>
   </form>
-  <button>View Expired Polls</button>
+</br>
+  <form method="GET" action="/question/poll/list">
+    <button type="submit">View Expired Polls</button>
+  </form>
   <% } else { %>
   <div class="progress">
     <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%= check[0].total.length %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= check[0].coll[0]/check[0].total.length*100 %>%">

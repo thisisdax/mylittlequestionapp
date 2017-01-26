@@ -1,0 +1,49 @@
+<div class="container">
+<% if (poll.length) { %>
+  <h1 class="page-header">Polls you created</h1>
+
+<ul class="list-group">
+  <% poll.forEach(function (show) { %>
+    <li class="list-group-item">      <div class="progress">
+            <% if (show.coll[0] > 0) { %>
+            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%= show.total.length %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= show.coll[0]/show.total.length*100 %>%">
+            <%= (show.coll[0]/show.total.length*100).toFixed(2) %>%
+            </div>
+            <% } if (show.coll[1] > 0) { %>
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= show.total.length %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= show.coll[1]/show.total.length*100 %>%">
+            <%= (show.coll[1]/show.total.length*100).toFixed(2) %>%
+            </div>
+            <% } if (show.coll[2] > 0) { %>
+            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%= show.total.length %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= show.coll[2]/show.total.length*100 %>%">
+            <%= (show.coll[2]/show.total.length*100).toFixed(2) %>%
+            </div>
+            <% } if (show.coll[3] > 0) { %>
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<%= show.total.length %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= show.coll[3]/show.total.length*100 %>%">
+            <%= (show.coll[3]/show.total.length*100).toFixed(2) %>%
+            </div>
+            <% } %>
+          </div>
+      <strong>Topic: </strong>
+      <%= show.qns %></br>
+      <strong>Total Participants: </strong>
+      <%= show.total.length %>
+      <% if (show.choices[0] !== undefined) { %>
+      <div style="background-color:#5BC0DE; text-align: center"><strong><%= show.choices[0] %>: <%= show.coll[0] %></strong></div>
+      <% } if (show.choices[1] !== undefined) { %>
+      <div style="background-color:#5CB85C; text-align: center"><strong><%= show.choices[1] %>: <%= show.coll[1] %></strong></div>
+      <% } if (show.choices[2] !== undefined) { %>
+      <div style="background-color:#D9534F; text-align: center"><strong><%= show.choices[2] %>: <%= show.coll[2] %></strong></div>
+      <% } if (show.choices[3] !== undefined) { %>
+      <div style="background-color:#F0AD4E; text-align: center"><strong><%= show.choices[3] %>: <%= show.coll[3] %></strong></div>
+      <% }}) %>
+    </li></br>
+    <form method="GET" action="/question/list/<%= user.host %>">
+      <button>Back</button>
+    </form>
+  <% } %>
+</ul>
+
+<% if (!poll.length) { %>
+  <h1 class="page-header">No polls yet!</h1>
+<% } %>
+</div>

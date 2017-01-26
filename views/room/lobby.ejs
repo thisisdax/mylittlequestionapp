@@ -164,6 +164,9 @@
     <input id="poll" class="form-control hide" type="poll" name="running" value = "false" placeholder="Title"></br>
     <button>Close Poll</button>
   </form>
+  <form method="GET" action="/question/poll/list/<%= key %>">
+    <button type="submit">View Expired Polls</button>
+  </form>
   <% } %>
   <% } %>
 </div>

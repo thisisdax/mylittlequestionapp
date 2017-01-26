@@ -1,22 +1,24 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
+<div class="container">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
 
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/room/join">Join a Room</a>
-    </div>
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/room/join">Join a Room</a>
+      </div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <% if (!user) { %>
-        <li><a href="/auth/signup">Signup</a></li>
-        <li><a href="/auth/login">Login</a></li>
-        <% } %>
-        <% if (user) { %>
-        <li><a href="/room/list">List All</a></li>
-        <li><a href="/room/create">Create Room</a></li>
-        <li><a href="/auth/logout">Logout</a></li>
-        <% } %>
-      </ul>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <% if (!user) { %>
+          <li><a href="/auth/signup">Signup</a></li>
+          <li><a href="/auth/login">Login</a></li>
+          <% } %>
+          <% if (user) { %>
+          <li><a href="/room/list">List All</a></li>
+          <li><a href="/room/create">Create Room</a></li>
+          <li><a href="/auth/logout">Logout</a></li>
+          <% } %>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>

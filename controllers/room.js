@@ -70,6 +70,10 @@ router.post('/create', function (req, res) {
         room: req.body.room,
         host: req.user._id
       }, function (err, room) {
+        if (err) {
+          req.flash('error', 'Error in creating room')
+          return res.redirect('/room/create')
+        }
         User.findOne({_id: req.user._id}, (err, user) => {
           if (err) {
             req.flash('error', 'Error in creating room')
@@ -91,7 +95,7 @@ router.post('/create', function (req, res) {
 
 router.get('/list', function (req, res) {
   if (req.user) {
-    Room.find({host: req.user._id}, function (err, room) {
+    Room.find({host: req.user._id}).populate('host').exec(function (err, room) {
       if (err) return console.log(err)
       User.findById(req.user._id).populate('room')
       .exec(function (err, joinroom) {

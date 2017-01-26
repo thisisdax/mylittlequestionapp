@@ -1,7 +1,8 @@
+<div class="container">
 <% if (user) { %>
   <form action="/room/join?_method=PUT" method="POST">
     <div class="form-group">
-      <label for="authRoom">Join a Room!</label>
+      <label for="authRoom">Tell me something...</label>
       <input id="authRoom" class="form-control" type="room" name="room">
     </div>
 
@@ -9,3 +10,4 @@
 
   </form>
 <% } %>
+</div>

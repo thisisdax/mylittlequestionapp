@@ -7,8 +7,8 @@
     <li class="list-group-item">
       <strong>Topic: </strong>
       <%= show.room %></br>
-      <strong>Room: </strong>
-      <%= show.id %>
+      <strong>Host Name: </strong>
+      <%= show.host.name %>
     </li>
     <form method="POST" action="list/<%= show._id %>?_method=DELETE">
       <button>Delete</button>
@@ -24,9 +24,9 @@
   <h1 class="page-header">Rooms you joined</h1>
 
 <ul class="list-group">
-  <% joinroom.forEach(function (show) { %>
+  <% joinroom.forEach(function (show, showindex) { %>
     <li class="list-group-item">
-      <strong><%= show._id %>: </strong>
+      <strong><%= room[showindex].host.name %>: </strong>
       <%= show.room %>
     </li>
     <form method="POST" action="list/<%= show._id %>?_method=DELETE">
@@ -42,3 +42,4 @@
 <% if (!room.length && !joinroom.length) { %>
   <h1 class="page-header">Nothing on your activity!</h1>
 <% } %>
+</div>

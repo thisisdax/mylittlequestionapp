@@ -68,4 +68,11 @@ router.put('/poll/stop', function (req, res) {
   })
 })
 
+router.get('/poll/list', function (req, res) {
+  Poll.find({_id: req.body.id, running: false}, function (err, poll) {
+    if (err) return console.log(err)
+    res.render('room/polls', {poll: poll})
+  })
+})
+
 module.exports = router

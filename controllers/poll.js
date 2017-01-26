@@ -50,10 +50,11 @@ router.put('/poll/stop', function (req, res) {
   })
 })
 
-router.get('/poll/list/', function (req, res) {
-  Poll.find({room: req.user.host, running: false}, function (err, poll) {
+router.get('/poll/list/:id', function (req, res) {
+  Poll.find({room: req.params.id, running: false}, function (err, poll) {
+    console.log(poll);
     if (err) return console.log(err)
-    res.render('room/polls', {poll: poll, user: req.user})
+    res.render('room/polls', {poll: poll, user: req.user, key: req.params.id})
   })
 })
 

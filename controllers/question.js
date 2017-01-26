@@ -11,7 +11,7 @@ router.get('/list/:id', function (req, res) {
       if (err) return console.log(err)
       Poll.find({room: req.params.id, running: true}, function (err, check) {
         if (err) return console.log(err)
-        res.render('room/lobby', {room: room, user: req.user, check: check})
+        res.render('room/lobby', {room: room, user: req.user, check: check, key: req.params.id})
       })
     })
   } else {

@@ -40,7 +40,7 @@ router.put('/join', function (req, res) {
           user.save()
           room.save()
           req.flash('success', 'You joined a new room!')
-          return res.redirect('/room/list')
+          return res.redirect('/question/list/' + room.id)
         }
       })
     })
@@ -86,7 +86,7 @@ router.post('/create', function (req, res) {
           req.flash('error', 'Unable to create room')
           return res.redirect('/room/create')
         } else {
-          return res.redirect('/room/list')
+          return res.redirect('/question/list/' + room._id)
         }
       })
     }

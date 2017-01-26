@@ -37,7 +37,7 @@
       <div style="background-color:#F0AD4E; text-align: center"><strong><%= show.choices[3] %>: <%= show.coll[3] %></strong></div>
       <% }}) %>
     </li></br>
-    <form method="GET" action="/question/list/<%= user.host %>">
+    <form method="GET" action="/question/list/<%= key %>">
       <button>Back</button>
     </form>
   <% } %>
@@ -45,5 +45,8 @@
 
 <% if (!poll.length) { %>
   <h1 class="page-header">No polls yet!</h1>
+  <form method="GET" action="/question/list/<%= key %>">
+    <button>Back</button>
+  </form>
 <% } %>
 </div>

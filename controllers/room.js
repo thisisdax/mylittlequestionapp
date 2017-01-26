@@ -33,14 +33,14 @@ router.put('/join', function (req, res) {
         if (err) return req.flash('error', err)
         if (userAvail.length) {
           req.flash('error', 'You have already joined the room')
-          res.redirect('/room/list')
+          return res.redirect('/room/list')
         } else {
           user.room.push(room.id)
           room.users.push(req.user.id)
           user.save()
           room.save()
           req.flash('success', 'You joined a new room!')
-          res.redirect('/room/list')
+          return res.redirect('/room/list')
         }
       })
     })
@@ -97,7 +97,12 @@ router.get('/list', function (req, res) {
   if (req.user) {
     Room.find({host: req.user._id}).populate('host').exec(function (err, room) {
       if (err) return console.log(err)
-      User.findById(req.user._id).populate('room')
+      User.findById(req.user._id).populate({
+        path: 'room',
+        populate: {
+          path: 'host'
+        }
+      })
       .exec(function (err, joinroom) {
         if (err) return console.log(err)
         res.render('room/list', {room: room, joinroom: joinroom.room, user: req.user})

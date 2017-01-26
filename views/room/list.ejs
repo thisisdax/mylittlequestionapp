@@ -26,7 +26,7 @@
 <ul class="list-group">
   <% joinroom.forEach(function (show, showindex) { %>
     <li class="list-group-item">
-      <strong><%= room[showindex].host.name %>: </strong>
+      <strong><%= show.host.name %>: </strong>
       <%= show.room %>
     </li>
     <form method="POST" action="list/<%= show._id %>?_method=DELETE">

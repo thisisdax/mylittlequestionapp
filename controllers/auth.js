@@ -14,7 +14,7 @@ router.post('/signup', function (req, res, next) {
     password: req.body.password
   }, function (err, createdUser) {
     if (err) {
-      req.flash('error', 'Could not create user account')
+      req.flash('error', err + '. Please enter at least 8 characters.')
       res.redirect('/auth/signup')
     } else {
       passport.authenticate('local', {

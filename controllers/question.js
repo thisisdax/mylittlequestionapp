@@ -52,26 +52,30 @@ router.put('/vote/:id', function (req, res) {
 })
 
 router.post('/create/:id', function (req, res) {
-  console.log('req.bodycreate', req.body)
-  Question.create({
-    title: req.body.title,
-    description: req.body.description,
-    user: req.user.id,
-    room: req.params.id
-  }, function (err, createdQuestion) {
-    if (err) {
-      req.flash('error', 'Could not create question')
-      return res.redirect('/question/list')
-    } else {
-      Room.findOne({_id: createdQuestion.room}, function (err, room) {
-        if (err) return console.log(err)
-        room.question.push(createdQuestion)
-        room.save()
-      })
-      req.flash('success', 'You posted question')
-      res.redirect('/question/list/' + createdQuestion.room)
-    }
-  })
+  if (req.body.title === '' || req.body.description === '') {
+    req.flash('error', 'You better put in a proper question.')
+    return res.redirect('/question/list/'+req.params.id)
+  } else {
+    Question.create({
+      title: req.body.title,
+      description: req.body.description,
+      user: req.user.id,
+      room: req.params.id
+    }, function (err, createdQuestion) {
+      if (err) {
+        req.flash('error', 'Could not create question')
+        return res.redirect('/question/list')
+      } else {
+        Room.findOne({_id: createdQuestion.room}, function (err, room) {
+          if (err) return console.log(err)
+          room.question.push(createdQuestion)
+          room.save()
+        })
+        req.flash('success', 'You posted question')
+        res.redirect('/question/list/' + createdQuestion.room)
+      }
+    })
+  }
 })
 
 router.delete('/remove/:id', function (req, res) {

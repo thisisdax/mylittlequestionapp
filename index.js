@@ -15,7 +15,7 @@ const question = require('./controllers/question')
 const poll = require('./controllers/poll')
 var isLoggedIn = require('./middleware/isLoggedIn')
 
-mongoose.connect('mongodb://localhost/mylittlequestionapp')
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mylittlequestionapp');
 mongoose.Promise = global.Promise
 
 app.use(express.static(path.join(__dirname, 'public')))

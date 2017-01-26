@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "engines" : {
-  "node" : "^6.9.1"
+  "engines": {
+    "node": "^6.9.1"
   },
   "dependencies": {
     "bcryptjs": "^2.4.0",
@@ -23,12 +23,10 @@
     "morgan": "^1.7.0",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "sequelize-cli": "^2.5.1"
   },
   "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC"

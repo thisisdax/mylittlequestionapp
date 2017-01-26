@@ -1,6 +1,7 @@
 const express = require('express')
 const Room = require('../models/roomModel')
 const User = require('../models/userModel')
+const Poll = require('../models/pollModel')
 const Question = require('../models/questionModel')
 const router = express.Router()
 
@@ -127,7 +128,10 @@ router.delete('/list/:id', function (req, res) {
       })
       Room.findOneAndRemove({_id: req.params.id}, function (err, room) {
         if (err) return console.log(err)
-        return res.redirect('/room/list')
+        Poll.findOneAndRemove({room: req.params.id}, function (err, poll) {
+          if (err) return console.log(err)
+          return res.redirect('/room/list')
+        })
       })
     } else {
       User.findById(req.user.id, function (err, user) {

@@ -12,6 +12,7 @@ const flash = require('connect-flash')
 const auth = require('./controllers/auth')
 const room = require('./controllers/room')
 const question = require('./controllers/question')
+const poll = require('./controllers/poll')
 var isLoggedIn = require('./middleware/isLoggedIn')
 
 mongoose.connect('mongodb://localhost/mylittlequestionapp')
@@ -45,7 +46,8 @@ app.use(isLoggedIn)
 app.get('/profile', function (req, res) {
   res.render('profile')
 })
-app.use('/question', question)
+app.use('/question', question) // check this one
+app.use('/question', poll)
 const server = app.listen(process.env.PORT || 3000)
 
 module.exports = server

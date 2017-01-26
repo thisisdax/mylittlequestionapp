@@ -1,6 +1,53 @@
 <div class="container">
   <h1 class="page-header">Topic: <%= room.room %></h1>
-  
+  <% if (check.length !== 0) { %>
+  <% if (!room.host.equals(user.id)) { %>
+    <ul class="list-group">
+    <h2>Poll Progress</h2>
+
+    <div class="progress">
+      <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%= check[0].total.length %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= check[0].coll[0]/check[0].total.length*100 %>%">
+        <%= (check[0].coll[0]/check[0].total.length*100).toFixed(2) %>%
+      </div>
+      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= check[0].total.length %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= check[0].coll[1]/check[0].total.length*100 %>%">
+        <%= (check[0].coll[1]/check[0].total.length*100).toFixed(2) %>%
+      </div>
+      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%= check[0].total.length %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= check[0].coll[2]/check[0].total.length*100 %>%">
+        <%= (check[0].coll[2]/check[0].total.length*100).toFixed(2) %>%
+      </div>
+      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<%= check[0].total.length %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= check[0].coll[3]/check[0].total.length*100 %>%">
+        <%= (check[0].coll[3]/check[0].total.length*100).toFixed(2) %>%
+      </div>
+    </div>
+
+  <% check.forEach(function(poll) { %>
+
+    <% if (poll.total.indexOf(user.id) < 0) { %>
+
+    <li class="list-group-item"><strong>Question: <%= poll.qns %></strong></li>
+    <% poll.choices.forEach(function(hmm, index) { %>
+    <form method="POST" action="/question/poll?_method=PUT">
+      <li class="list-group-item">
+        <input id="poll" class="form-control hide" type="poll" name="id" value="<%= poll.id %>">
+        <input id="poll" class="form-control hide" type="poll" name="index" value="<%= index %>">
+        <strong><button><%= index+1 %>: <%= hmm %></button></strong>
+      </li>
+    </form>
+    <% }) %>
+    <% } else { %>
+      <li class="list-group-item" style="background-color:#5BC0DE"><strong><%= check[0].choices[0] %> : <%= (check[0].coll[0]/check[0].total.length*100).toFixed(2) %>% @ <%=check[0].coll[0]%> vote</strong></li>
+      <li class="list-group-item" style="background-color:#5CB85C"><strong><%= check[0].choices[1] %> : <%= (check[0].coll[1]/check[0].total.length*100).toFixed(2) %>% @ <%=check[0].coll[1]%> vote</strong></li>
+      <li class="list-group-item" style="background-color:#D9534F"><strong><%= check[0].choices[2] %> : <%= (check[0].coll[2]/check[0].total.length*100).toFixed(2) %>% @ <%=check[0].coll[2]%> vote</strong></li>
+      <li class="list-group-item" style="background-color:#F0AD4E"><strong><%= check[0].choices[3] %> : <%= (check[0].coll[3]/check[0].total.length*100).toFixed(2) %>% @ <%=check[0].coll[3]%> vote</strong></li>
+    <% } %>
+  <% }) %>
+</ul>
+  <% } %>
+<% } %>
+
+  <% if (!room.question.length) { %>
+    <h3 class="page-header">No one has any questions yet!</h3>
+  <% } %>
 <ul class="list-group">
   <% room.question.sort(function(a,b) { return b.votes.length - a.votes.length }) %>
   <% room.question.forEach(function (show) { %>
@@ -45,10 +92,6 @@
   <% }) %>
 </ul>
 
-<% if (!room.question.length) { %>
-  <h3 class="page-header">No one has any questions yet!</h3>
-<% } %>
-
 <% if (!room.host.equals(user.id)) { %>
 <form method="POST" action="/question/create/<%= room._id %>">
   <div class="form-group">
@@ -57,4 +100,45 @@
   </div>
   <button>Create</button>
 </form>
+<% } else { %>
+  <% if (check.length === 0) { %>
+  <form method="POST" action="/question/poll">
+    <div class="form-group">
+      <input id="question" class="form-control hide" type="question" name="room" value = "<%= room._id %>" placeholder="Title">
+      <input id="question" class="form-control" type="question" name="qns" placeholder="Question">
+      <input id="question" class="form-control" type="question" name="choices" placeholder="Description">
+      <input id="question" class="form-control" type="question" name="choices" placeholder="Description">
+      <input id="question" class="form-control" type="question" name="choices" placeholder="Description">
+      <input id="question" class="form-control" type="question" name="choices" placeholder="Description">
+    </div>
+    <button>Create</button>
+  </form>
+  <button>View Expired Polls</button>
+  <% } else { %>
+    <div class="progress">
+      <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%= check[0].total.length %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= check[0].coll[0]/check[0].total.length*100 %>%">
+        <%= (check[0].coll[0]/check[0].total.length*100).toFixed(2) %>%
+      </div>
+      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= check[0].total.length %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= check[0].coll[1]/check[0].total.length*100 %>%">
+        <%= (check[0].coll[0]/check[0].total.length*100).toFixed(2) %>%
+      </div>
+      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%= check[0].total.length %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= check[0].coll[2]/check[0].total.length*100 %>%">
+        <%= (check[0].coll[0]/check[0].total.length*100).toFixed(2) %>%
+      </div>
+      <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<%= check[0].total.length %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= check[0].coll[3]/check[0].total.length*100 %>%">
+        <%= (check[0].coll[0]/check[0].total.length*100).toFixed(2) %>%
+      </div>
+    </div>
+    <h3>Question: <%=check[0].qns%></h3>
+    <h4>Total Votes: <%=check[0].total.length%></h4>
+    <li class="list-group-item" style="background-color:#5BC0DE"><strong><%= check[0].choices[0] %> : <%= (check[0].coll[0]/check[0].total.length*100).toFixed(2) %>% @ <%=check[0].coll[0]%> vote</strong></li>
+    <li class="list-group-item" style="background-color:#5CB85C"><strong><%= check[0].choices[1] %> : <%= (check[0].coll[1]/check[0].total.length*100).toFixed(2) %>% @ <%=check[0].coll[1]%> vote</strong></li>
+    <li class="list-group-item" style="background-color:#D9534F"><strong><%= check[0].choices[2] %> : <%= (check[0].coll[2]/check[0].total.length*100).toFixed(2) %>% @ <%=check[0].coll[2]%> vote</strong></li>
+    <li class="list-group-item" style="background-color:#F0AD4E"><strong><%= check[0].choices[3] %> : <%= (check[0].coll[3]/check[0].total.length*100).toFixed(2) %>% @ <%=check[0].coll[3]%> vote</strong></li></br>
+    <form method="POST" action="/question/poll/stop?_method=PUT">
+      <input id="poll" class="form-control hide" type="poll" name="id" value = "<%= check[0]._id %>" placeholder="Title">
+      <input id="poll" class="form-control hide" type="poll" name="running" value = "false" placeholder="Title">
+      <button>Close Poll</button>
+    </form>
+  <% } %>
 <% } %>

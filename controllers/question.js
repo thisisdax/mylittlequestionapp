@@ -76,7 +76,7 @@ router.post('/create/:id', function (req, res) {
       }
     })
   }
-})
+}) //
 
 router.delete('/remove/:id', function (req, res) {
   Question.findOne({_id: req.params.id}, function (err, question) {

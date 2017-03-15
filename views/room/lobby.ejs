@@ -28,11 +28,10 @@
       <li class="list-group-item"><strong>Question: <%= poll.qns %></strong></li>
       <% poll.choices.forEach(function(hmm, index) { %>
         <form method="POST" action="/question/poll?_method=PUT">
-          <li class="list-group-item">
+          <button style="width: 100%" class="btn btn-default"><strong><%= index+1 %>: <%= hmm %>
             <input id="poll" class="form-control hide" type="poll" name="id" value="<%= poll.id %>">
             <input id="poll" class="form-control hide" type="poll" name="index" value="<%= index %>">
-            <strong><button><%= index+1 %>: <%= hmm %></button></strong>
-          </li>
+          </strong></button>
         </form>
       <% }) %>
       <% } else { %>
@@ -104,7 +103,7 @@
       <input id="question" class="form-control" type="question" name="title" placeholder="Title">
       <input id="question" class="form-control" type="question" name="description" placeholder="Description">
     </div>
-    <button>Create</button>
+    <div style="text-align: center;"><button class="btn btn-default">Create</button></div>
   </form>
   <% } else { %>
   <% if (check.length === 0) { %>
@@ -117,11 +116,11 @@
       <input id="question" class="form-control" type="question" name="choices" placeholder="Option">
       <input id="question" class="form-control" type="question" name="choices" placeholder="Option">
     </div>
-    <button>Create</button>
+    <div style="text-align: center;"><button class="createbtn btn btn-default">Create</button><div>
   </form>
 </br>
   <form method="GET" action="/question/poll/list/<%= key %>">
-    <button type="submit">View Expired Polls</button>
+    <div style="text-align: center;"><button style="background-color: #e6e6e6;" class="btn btn-default" type="submit">View Expired Polls</button><div>
   </form>
   <% } else { %>
   <div class="progress">
@@ -162,10 +161,11 @@
   <form method="POST" action="/question/poll/stop?_method=PUT">
     <input id="poll" class="form-control hide" type="poll" name="id" value = "<%= check[0]._id %>" placeholder="Title">
     <input id="poll" class="form-control hide" type="poll" name="running" value = "false" placeholder="Title"></br>
-    <button>Close Poll</button>
+    <div style="text-align: center;"><button class="btn btn-danger">Close Poll</button><div>
   </form>
+</br>
   <form method="GET" action="/question/poll/list/<%= key %>">
-    <button type="submit">View Expired Polls</button>
+    <div style="text-align: center;"><button style="background-color: #e6e6e6;" class="btn btn-default">View Expired Polls</button><div>
   </form>
   <% } %>
   <% } %>

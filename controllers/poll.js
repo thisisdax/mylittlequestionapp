@@ -30,7 +30,7 @@ router.post('/poll', function (req, res) {
   }
 })
 
-router.put('/poll', function (req, res) {
+router.put('/poll', function (req, res) { // this part also
   Poll.findById(req.body.id, function (err, poll) {
     if (err) return console.log(err)
     poll.coll[req.body.index] += 1
@@ -52,7 +52,6 @@ router.put('/poll/stop', function (req, res) {
 
 router.get('/poll/list/:id', function (req, res) {
   Poll.find({room: req.params.id, running: false}, function (err, poll) {
-    console.log(poll);
     if (err) return console.log(err)
     res.render('room/polls', {poll: poll, user: req.user, key: req.params.id})
   })

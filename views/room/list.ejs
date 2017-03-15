@@ -11,13 +11,20 @@
       <%= show.host.name %>
     </li>
     <br>
+    <div style="text-align: center;">
+    <div style="float: left;">
     <form method="POST" action="list/<%= show._id %>?_method=DELETE">
-      <button>Delete</button>
+      <button class="btn btn-default">Delete</button>
     </form>
-  </br>
+    </div>
+    <div style="float: left;">
     <form method="GET" action="/question/list/<%= show._id %>">
-      <button>Enter</button>
+      <button class="btn btn-default">Enter</button>
     </form>
+    </div>
+    </div>
+  </br>
+  </br>
   </br>
   <% }) %>
 </ul>
@@ -31,12 +38,21 @@
       <strong><%= show.host.name %>: </strong>
       <%= show.room %>
     </li>
+  </br>
+  <div style="text-align: center;">
+    <div style="float: left;">
     <form method="POST" action="list/<%= show._id %>?_method=DELETE">
-      <button>Delete</button>
+      <button class="btn btn-default">Delete</button>
     </form>
+    </div>
+    <div style="float: left;">
     <form method="GET" action="/question/list/<%= show._id %>">
-      <button>Enter</button>
+      <button class="btn btn-default">Enter</button>
     </form>
+    </div>
+  </div>
+  </br>
+  </br>
   <% }) %>
 </ul>
 <% } %>

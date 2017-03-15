@@ -14,8 +14,10 @@ const room = require('./controllers/room')
 const question = require('./controllers/question')
 const poll = require('./controllers/poll')
 var isLoggedIn = require('./middleware/isLoggedIn')
-
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mylittlequestionapp');
+var http = require('http').createServer(app)
+var io = require('socket.io')(http)
+global.io = io
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mylittlequestionapp')
 mongoose.Promise = global.Promise
 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -40,14 +42,26 @@ app.use(function (req, res, next) {
 app.get('/', (req, res) => {
   res.render('index', { user: req.user })
 })
+
 app.use('/auth', auth)
 app.use('/room', room)
 app.use(isLoggedIn)
 app.get('/profile', function (req, res) {
   res.render('profile')
 })
+
 app.use('/question', question) // check this one
 app.use('/question', poll)
-const server = app.listen(process.env.PORT || 3000)
+const server = http.listen(process.env.PORT || 8080)
+
+io.on('connect', function (socket) {
+  console.log('test')
+  socket.on('connect', function (data) {
+    console.log(data)
+  })
+//   socket.on('event', function (data) {
+//   })
+//   socket.on('disconnect', function () {})
+})
 
 module.exports = server

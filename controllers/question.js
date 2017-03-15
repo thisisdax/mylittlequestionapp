@@ -38,7 +38,7 @@ router.put('/unapprove/:id', function (req, res) {
   })
 })
 
-router.put('/vote/:id', function (req, res) {
+router.put('/vote/:id', function (req, res) { // <----- down here
   Question.findById(req.params.id).populate('room').exec((err, question) => {
     if (err) return req.flash('error', err)
     if (question.votes.indexOf(req.user.id) < 0) {
@@ -54,7 +54,7 @@ router.put('/vote/:id', function (req, res) {
 router.post('/create/:id', function (req, res) {
   if (req.body.title === '' || req.body.description === '') {
     req.flash('error', 'You better put in a proper question.')
-    return res.redirect('/question/list/'+req.params.id)
+    return res.redirect('/question/list/' + req.params.id)
   } else {
     Question.create({
       title: req.body.title,
